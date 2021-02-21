@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Input } from '../Components';
 import OpacityButton from '../Components/OpacityButton';
 import common from '../Styles/common';
 import signUpStyles from '../Styles/SignUpStyles';
 
-export const SignUp = () => {
+export const SignUp = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,13 +13,13 @@ export const SignUp = () => {
 
   const onChangeEmail = text => {
     setEmail(text);
-  }
+  };
   const onChangePassword = text => {
     setPassword(text);
-  }
+  };
   const onChangeRepeatPassword = text => {
     setRepeatPassword(text);
-  }
+  };
 
   return (
     <View style={{...common.container, ...signUpStyles.container}}>
@@ -43,10 +43,18 @@ export const SignUp = () => {
             secureTextEntry
           />
       </View>
-      <OpacityButton
-        onPress={() => console.log('SIGN UP')}
-        title="Sign Up"
-      />
+      <View>
+        <OpacityButton
+          onPress={() => console.log('SIGN U P')}
+          title="Sign Up"
+        />
+        <OpacityButton
+          onPress={() => props.navigation.navigate('SignIn')}
+          title="Sign In"
+          isNotFilled={true}  
+        />
+      </View>
     </View>
-  )
-}
+  );
+};
+

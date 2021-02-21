@@ -1,5 +1,6 @@
 const initialState = {
     currentUser: null,
+    errorMessage: ""
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -8,6 +9,12 @@ export const userReducer = (state = initialState, action) => {
         return {
           ...state,
           currentUser: action.payload,
+          errorMessage: ""
+        };
+      case 'SET_LOGIN_ERROR':
+        return {
+          ...state,
+          errorMessage: action.payload,
         };
       default:
         return state;

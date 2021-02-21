@@ -11,11 +11,19 @@ export default StyleSheet.create({
     backgroundColor: colors.mainGreen,
     borderRadius: 4,
   },
+  buttonNotFilled: {
+    borderWidth: 2,
+    borderColor: colors.mainGreen,
+    backgroundColor: 'rgba(0,0,0,0)'
+  },
   title: {
     color: colors.mainLightGray,
     fontWeight: 'bold',
     letterSpacing: 4,
     textTransform: 'capitalize',
   },
+  titleNotFilled: {
+    color: colors.mainGreen,
+  }
 });
   

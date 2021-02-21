@@ -4,3 +4,10 @@ export const setCurrentUser = (user) => {
     payload: user
   }  
 }
+
+export const setLoginError = (message) => {
+  return {
+    type: 'SET_LOGIN_ERROR',
+    payload: message
+  }
+}

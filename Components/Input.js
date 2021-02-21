@@ -6,9 +6,6 @@ export const Input = (props) => {
   return (
     <TextInput
       style={inputStyles.input}
-      // onChangeText={text => onChangeText(text)}
-      // value={value}
-      // placeholder={placeholder}
       {...props}
     />        
   );
