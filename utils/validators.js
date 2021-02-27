@@ -1,4 +1,7 @@
 export const areCredentialsInvalid = (email, password) => {
+
+  if (__DEV__) return "";
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     return "Please enter a correct email address."; 
   if (password.length < 3)

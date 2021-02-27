@@ -9,14 +9,14 @@ import common from "../Styles/common";
 import signUpStyles from "../Styles/SignUpStyles";
 import { areCredentialsInvalid } from "../utils";
 
-export const SignIn = () => {
+export const SignIn = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
   const { currentUser, errorMessage } = useSelector(state => state.user);
-
+  
   const onChangeEmail = text => {
     setEmail(text);
   };
@@ -63,10 +63,17 @@ export const SignIn = () => {
           secureTextEntry
         />
       </View>
-      <OpacityButton
-        onPress={onSignIn}
-        title="Sign In"
-      />
+      <View>
+        <OpacityButton
+          onPress={onSignIn}
+          title="Sign In"
+        />
+        <OpacityButton
+          onPress={() => props.navigation.navigate('SignUp')}
+          title="Sign Up"
+          isNotFilled={true}  
+        />
+      </View>
     </View>
   );
 };

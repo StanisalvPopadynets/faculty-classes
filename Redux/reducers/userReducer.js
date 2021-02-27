@@ -11,6 +11,9 @@ export const userReducer = (state = initialState, action) => {
           currentUser: action.payload,
           errorMessage: ""
         };
+      case 'LOGOUT':
+        console.log("logout")
+        return initialState;
       case 'SET_LOGIN_ERROR':
         return {
           ...state,

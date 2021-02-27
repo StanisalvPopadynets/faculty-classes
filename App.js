@@ -3,15 +3,12 @@ import React from 'react';
 import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import configureStore from './Redux/store';
-import { SignUp, SignIn } from './Screens';
 import AppStyles from './Styles/AppStyles';
 import { SplashScreen } from './Components';
-
-const Stack = createStackNavigator();
+import Routes from './Routes';
 
 const { reduxStore, persistor } = configureStore();
 
@@ -37,10 +34,7 @@ const App = () => {
               <NavigationContainer>
                 <View style={AppStyles.appView}>
                   <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
-                  <Stack.Navigator headerMode="none">
-                    <Stack.Screen name="SignUp" component={SignUp} />
-                    <Stack.Screen name="SignIn" component={SignIn} />
-                  </Stack.Navigator>
+                  <Routes />
                 </View>
               </NavigationContainer>
         }

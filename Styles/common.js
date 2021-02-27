@@ -7,5 +7,11 @@ import { StyleSheet } from 'react-native';
     flex1: {
       flex: 1
     },
+    androidSafeArea: {
+      flex: 1,
+      // backgroundColor: npLBlue,
+      paddingTop: Platform.OS === 'android' ? 25 : 0,
+      // paddingBottom: Platform.OS === 'android' ? 25 : 0
+  },
   });
   
