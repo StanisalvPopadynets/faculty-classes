@@ -8,12 +8,12 @@ export default StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     padding: 15,
-    backgroundColor: colors.mainGreen,
+    backgroundColor: colors.mainPurple,
     borderRadius: 4,
   },
   buttonNotFilled: {
     borderWidth: 2,
-    borderColor: colors.mainGreen,
+    borderColor: colors.mainPurple,
     backgroundColor: 'rgba(0,0,0,0)'
   },
   title: {
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     textTransform: 'capitalize',
   },
   titleNotFilled: {
-    color: colors.mainGreen,
+    color: colors.mainPurple,
   }
 });
   
