@@ -135,6 +135,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -210,6 +211,9 @@ dependencies {
     }
 
     implementation project(':react-native-config')
+    implementation project(':@react-native-firebase_firestore')
+    
+    implementation 'androidx.multidex:multidex:2.0.1'
 
 }
 

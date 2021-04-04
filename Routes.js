@@ -17,8 +17,9 @@ const Routes = () => {
     {
       currentUser
         ?
-          <Tab.Navigator>
+          <Tab.Navigator tabBarOptions={{activeBackgroundColor: 'red'}}>
             <Tab.Screen name="Home" component={HomeScreen}/>
+            <Tab.Screen name="Feed" component={() => <Text>ASDASD</Text>}/>
           </Tab.Navigator>
         :
           <Stack.Navigator headerMode="none">
