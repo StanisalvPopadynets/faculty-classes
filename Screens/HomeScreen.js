@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, SafeAreaView} from 'react-native';
+import {Card} from '../Components';
 import OpacityButton from '../Components/OpacityButton';
 import {logout} from '../Redux/actions/user';
 import common from '../Styles/common';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export const HomeScreen = (props) => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export const HomeScreen = (props) => {
 
   useEffect(() => {
     const fetchClasses = async () => {
-      const classes = await firestore()
+      await firestore()
         .collection('classes')
         .where('teacherId', '==', auth().currentUser.uid)
         .get()
@@ -33,10 +35,29 @@ export const HomeScreen = (props) => {
     fetchClasses();
   }, []);
   return (
-    <SafeAreaView style={common.androidSafeArea}>
-      <View style={common.container}>
-        <OpacityButton title="Logout" onPress={onLogout} />
-      </View>
-    </SafeAreaView>
+    <ScrollView style={{padding: 20}}>
+      <SafeAreaView style={common.androidSafeArea}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        {/* <OpacityButton title="Logout" onPress={onLogout} /> */}
+      </SafeAreaView>
+    </ScrollView>
   );
 };

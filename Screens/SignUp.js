@@ -17,6 +17,7 @@ export const SignUp = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [group, setGroup] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isTeacher, setIsTeacher] = useState(false);
 
@@ -28,6 +29,9 @@ export const SignUp = (props) => {
   };
   const onChangeRepeatPassword = (text) => {
     setRepeatPassword(text);
+  };
+  const onChangeGroup = (text) => {
+    setGroup(text);
   };
 
   const toggleIsTeacher = () => {
@@ -47,12 +51,20 @@ export const SignUp = (props) => {
       return;
     }
     try {
+      const userDataToSave = {
+        email,
+        isTeacher,
+      };
+
+      if (!isTeacher) {
+        userDataToSave.group = group;
+      }
       const data = await auth().createUserWithEmailAndPassword(email, password);
       await firestore()
         .collection('users')
         .doc(data.user.uid)
-        .set({email, isTeacher});
-      dispatch(setCurrentUser({email, password, isTeacher}));
+        .set(userDataToSave);
+      dispatch(setCurrentUser(userDataToSave));
     } catch (error) {
       setErrorMessage(error);
       console.log(error);
@@ -72,7 +84,7 @@ export const SignUp = (props) => {
         <Input
           onChangeText={onChangePassword}
           value={password}
-          placeholder="Passowrd"
+          placeholder="Password"
           secureTextEntry
         />
         <Input
@@ -81,6 +93,14 @@ export const SignUp = (props) => {
           placeholder="Repeat password"
           secureTextEntry
         />
+        {!isTeacher ? (
+          <Input
+            onChangeText={onChangeGroup}
+            value={group}
+            placeholder="Group"
+            secureTextEntry
+          />
+        ) : null}
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Text>Sign up as a teacher</Text>
           <Switch
