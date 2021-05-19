@@ -1,61 +1,62 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { showMessage, hideMessage } from "react-native-flash-message";
-import { Input } from "../Components";
-import { setCurrentUser, setLoginError } from "../Redux/actions/user";
-import OpacityButton from "../Components/OpacityButton";
-import common from "../Styles/common";
-import signUpStyles from "../Styles/SignUpStyles";
-import { areCredentialsInvalid } from "../utils";
+import React, {useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {showMessage, hideMessage} from 'react-native-flash-message';
+import {Input} from '../Components';
+import {setCurrentUser, setLoginError} from '../Redux/actions/user';
+import OpacityButton from '../Components/OpacityButton';
+import common from '../Styles/common';
+import signUpStyles from '../Styles/SignUpStyles';
+import {areCredentialsInvalid} from '../utils';
+import auth from '@react-native-firebase/auth';
 
 export const SignIn = (props) => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
-  const { currentUser, errorMessage } = useSelector(state => state.user);
-  
-  const onChangeEmail = text => {
+
+  const onChangeEmail = (text) => {
     setEmail(text);
   };
-  const onChangePassword = text => {
+  const onChangePassword = (text) => {
     setPassword(text);
   };
 
-  const onSignIn = () => {
-
+  const onSignIn = async () => {
     const validationErrors = areCredentialsInvalid(email, password);
 
     if (validationErrors) {
-      showMessage({
-        message: "My message title",
-        description: "My message description",
-        type: "default",
-        backgroundColor: "purple", // background color
-        color: "#606060", // text color
-      });
-      dispatch(setLoginError(validationErrors));
+      setErrorMessage(validationErrors);
       return;
     }
 
-    
-    dispatch(setCurrentUser({ email, password }));
-  }
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      dispatch(setCurrentUser({email, password}));
+    } catch (error) {
+      console.log(error.message);
+      const possibleErr =
+        'There is no user record corresponding to this identifier. The user may have been deleted.';
+      if (error.message.includes(possibleErr)) {
+        setErrorMessage(possibleErr);
+      }
+    }
+  };
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
-    <View style={{ ...common.container, ...signUpStyles.container }}>
+    <View style={{...common.container, ...signUpStyles.container}}>
       <Text style={signUpStyles.logo}>Sign In</Text>
+      {errorMessage !== '' && (
+        <View style={styles.errorBox}>
+          <Text style={styles.errorMsg}>{errorMessage}</Text>
+        </View>
+      )}
       <View>
-        {errorMessage !== "" && <Text>{errorMessage}</Text>}
-        <Input
-          onChangeText={onChangeEmail}
-          value={email}
-          placeholder="Email"
-        />
+        <Input onChangeText={onChangeEmail} value={email} placeholder="Email" />
         <Input
           onChangeText={onChangePassword}
           value={password}
@@ -64,16 +65,27 @@ export const SignIn = (props) => {
         />
       </View>
       <View>
-        <OpacityButton
-          onPress={onSignIn}
-          title="Sign In"
-        />
+        <OpacityButton onPress={onSignIn} title="Sign In" />
         <OpacityButton
           onPress={() => props.navigation.navigate('SignUp')}
           title="Sign Up"
-          isNotFilled={true}  
+          isNotFilled={true}
         />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  errorBox: {
+    paddingHorizontal: 4,
+    paddingVertical: 8,
+    backgroundColor: '#f8d7da',
+    borderColor: '#721c24',
+    borderWidth: 1,
+    borderRadius: 4,
+  },
+  errorText: {
+    color: '#721c24',
+  },
+});

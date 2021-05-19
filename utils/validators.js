@@ -1,9 +1,8 @@
 export const areCredentialsInvalid = (email, password) => {
-
-  if (__DEV__) return "";
+  // if (__DEV__) return "";
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return "Please enter a correct email address."; 
+    return 'Please enter a correct email address.';
   if (password.length < 3)
     return 'Password must be at least eight characters long.';
   if (password.length < 8)
@@ -14,5 +13,5 @@ export const areCredentialsInvalid = (email, password) => {
     return 'Password should contain at least one uppercase letter.';
   if (!/^(?=.*?[#?!@$%^&*_-]).{8,}$/.test(password))
     return 'Password should contain at least one special character.';
-  return "";
-}
+  return '';
+};
