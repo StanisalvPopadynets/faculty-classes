@@ -15,12 +15,10 @@ const Routes = () => {
   return (
     <>
       {currentUser ? (
-        // <Drawer.Navigator>
-          <Tab.Navigator tabBarOptions={{activeBackgroundColor: 'purple'}}>
-            <Tab.Screen name="Classes" component={HomeScreen} />
-            <Tab.Screen name="Create a Class" component={Feed} />
-          </Tab.Navigator>
-        {/* </Drawer.Navigator> */}
+        <Tab.Navigator tabBarOptions={{activeBackgroundColor: 'purple'}}>
+          <Tab.Screen name="Classes" component={HomeScreen} />
+          <Tab.Screen name="Create a Class" component={Feed} />
+        </Tab.Navigator>
       ) : (
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="SignUp" component={SignUp} />
