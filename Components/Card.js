@@ -1,11 +1,19 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import cardStyles from '../Styles/CardStyles';
 
-export const Card = (props) => {
+export const Card = ({title, onPress}) => {
   return (
-    <View style={cardStyles.card} {...props}>
-      <Text>Card</Text>
-    </View>
+    <TouchableOpacity onPress={onPress} style={cardStyles.card}>
+      <Text style={styles.title}>{title}</Text>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+});

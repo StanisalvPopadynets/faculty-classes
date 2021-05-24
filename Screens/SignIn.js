@@ -9,6 +9,7 @@ import common from '../Styles/common';
 import signUpStyles from '../Styles/SignUpStyles';
 import {areCredentialsInvalid} from '../utils';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export const SignIn = (props) => {
   const [email, setEmail] = useState('');
@@ -33,8 +34,15 @@ export const SignIn = (props) => {
     }
 
     try {
-      await auth().signInWithEmailAndPassword(email, password);
-      dispatch(setCurrentUser({email, password}));
+      const signinRes = await auth().signInWithEmailAndPassword(
+        email,
+        password,
+      );
+      const verifyRes = await firestore()
+        .collection('users')
+        .doc(signinRes.user._user.uid)
+        .get();
+      dispatch(setCurrentUser(verifyRes.data()));
     } catch (error) {
       console.log(error.message);
       const possibleErr =
